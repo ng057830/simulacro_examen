@@ -1,0 +1,2569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instituto Europeo Simulator - Numerical Reasoning Test (EPSO AD5 - Set B Intermediate)</title>
+  <style>
+    :root {
+      --primary: #003399;
+      --primary-light: #2563eb;
+      --primary-dark: #002266;
+      --accent: #fdb813;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* TOP HEADER */
+    .top-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .eu-logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .eu-star-logo {
+      width: 34px;
+      height: 34px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.15rem;
+      box-shadow: 0 2px 4px rgba(0,51,153,0.3);
+    }
+
+    .logo-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+    }
+
+    .logo-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .test-level-badge {
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .timer-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+      font-variant-numeric: tabular-nums;
+      transition: all 0.3s ease;
+    }
+
+    .timer-pill.warning {
+      background: var(--warning-bg);
+      border-color: #fde68a;
+      color: var(--warning);
+      animation: pulseWarning 2s infinite;
+    }
+
+    .timer-pill.danger {
+      background: var(--danger-bg);
+      border-color: #fecaca;
+      color: var(--danger);
+      animation: pulseDanger 1s infinite;
+    }
+
+    @keyframes pulseDanger {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .switch-test-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      color: #334155;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+
+    .switch-test-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .tool-icon-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .tool-icon-btn:hover {
+      background: #f1f5f9;
+      border-color: var(--border-dark);
+      color: #0f172a;
+    }
+
+    .candidate-pill {
+      font-size: 0.82rem;
+      color: #475569;
+      background: #f8fafc;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* MAIN CONTAINER */
+    .exam-wrapper {
+      flex: 1;
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 6.5rem 1.5rem;
+    }
+
+    /* QUESTION CARD */
+    .question-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 0.75rem;
+    }
+
+    .question-number-badge {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-flag-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+
+    .btn-flag-toggle.flagged {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #b45309;
+    }
+
+    .question-prompt {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    /* VISUAL CONTAINER (TABLES / CHARTS) */
+    .visual-wrapper {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .visual-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: -0.2px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 0 auto;
+    }
+
+    .official-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .official-table th {
+      background-color: #334155;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #475569;
+      font-size: 0.84rem;
+    }
+
+    .official-table td {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #cbd5e1;
+      color: #1e293b;
+    }
+
+    .official-table tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    .official-table tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    .official-table .row-header {
+      background-color: #f1f5f9;
+      font-weight: 600;
+      text-align: left;
+      padding-left: 1rem;
+    }
+
+    /* CHART SVG STYLING */
+    .chart-svg-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart-svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* OPTIONS LIST */
+    .options-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.85rem;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .option-item:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+    }
+
+    .option-item.selected {
+      border-color: var(--primary-light);
+      background: #eff6ff;
+      box-shadow: 0 0 0 1px var(--primary-light);
+    }
+
+    .option-radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #94a3b8;
+      border-radius: 50%;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .option-item.selected .option-radio {
+      border-color: var(--primary-light);
+      background: var(--primary-light);
+    }
+
+    .option-radio-dot {
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: none;
+    }
+
+    .option-item.selected .option-radio-dot {
+      display: block;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #334155;
+      margin-right: 0.75rem;
+      min-width: 24px;
+    }
+
+    .option-item.selected .option-letter {
+      color: var(--primary-dark);
+    }
+
+    .option-text {
+      font-size: 1rem;
+      color: #1e293b;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .option-shortcut {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-left: 0.75rem;
+    }
+
+    /* FIXED BOTTOM NAVIGATION BAR */
+    .bottom-navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+      z-index: 45;
+    }
+
+    .nav-arrow-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: var(--border-dark);
+      color: #0f172a;
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .nav-arrow-btn.btn-next-active {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+    }
+
+    .nav-arrow-btn.btn-next-active:hover:not(:disabled) {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    .nav-question-matrix {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .nav-circle:hover {
+      border-color: #94a3b8;
+      color: #1e293b;
+    }
+
+    .nav-circle.active {
+      border-color: #0f172a;
+      color: #0f172a;
+      font-weight: 800;
+      box-shadow: 0 0 0 2px #0f172a;
+    }
+
+    .nav-circle.answered {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: 700;
+    }
+
+    .nav-circle.active.answered {
+      border-color: #0f172a;
+      box-shadow: 0 0 0 2px #0f172a;
+    }
+
+    .nav-circle.flagged::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 9px;
+      height: 9px;
+      background: #f59e0b;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .nav-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-overview {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-overview:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    .btn-submit-exam {
+      background: var(--success);
+      color: #ffffff;
+      border: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(22,163,74,0.25);
+    }
+
+    .btn-submit-exam:hover {
+      background: #15803d;
+    }
+
+    /* FLOATING WINDOWS (CALCULATOR & NOTEPAD) */
+    .floating-window {
+      position: fixed;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--border-dark);
+      box-shadow: var(--shadow-lg);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      width: 320px;
+    }
+
+    .floating-window.hidden {
+      display: none;
+    }
+
+    .window-header {
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: move;
+      user-select: none;
+    }
+
+    .window-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .window-close-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .window-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* CALCULATOR STYLES */
+    .calc-screen {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.75rem 1rem;
+      text-align: right;
+    }
+
+    .calc-history {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      min-height: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .calc-main-display {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-variant-numeric: tabular-nums;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .calc-pad {
+      padding: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.4rem;
+      background: #f8fafc;
+    }
+
+    .calc-btn {
+      height: 42px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .calc-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .calc-btn:active {
+      background: #e2e8f0;
+      transform: scale(0.97);
+    }
+
+    .calc-btn.btn-op {
+      background: #e0f2fe;
+      border-color: #bae6fd;
+      color: #0369a1;
+      font-weight: 700;
+    }
+
+    .calc-btn.btn-mem {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #92400e;
+      font-size: 0.8rem;
+    }
+
+    .calc-btn.btn-eq {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+      color: #ffffff;
+      font-weight: 700;
+      grid-column: span 2;
+    }
+
+    .calc-btn.btn-eq:hover {
+      background: #1d4ed8;
+    }
+
+    /* NOTEPAD STYLES */
+    .notepad-area {
+      width: 100%;
+      height: 220px;
+      border: none;
+      padding: 0.85rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+      background: #ffffff;
+      color: #1e293b;
+    }
+
+    .notepad-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.85rem;
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* MODAL OVERLAYS */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.hidden {
+      display: none;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      max-width: 580px;
+      width: 100%;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .overview-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+
+    .overview-item:hover {
+      border-color: var(--primary-light);
+      background: #eff6ff;
+    }
+
+    .overview-num {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .overview-status {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .status-unanswered { color: #94a3b8; }
+    .status-answered { color: #0284c7; }
+    .status-flagged { color: #d97706; }
+
+    /* RESULTS VIEW */
+    .results-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .results-summary-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .results-score-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #eff6ff;
+      border: 4px solid var(--primary-light);
+      color: var(--primary);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+
+    .results-score-badge.pass {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #15803d;
+    }
+
+    .results-score-badge.fail {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
+    }
+
+    .result-outcome-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-outcome-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 580px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .stats-pills {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-pill {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 1.25rem;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .stat-lbl {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .review-section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .review-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .review-q-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .review-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .review-badge.correct {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .review-badge.incorrect {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .review-badge.blank {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    .solution-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .solution-title {
+      font-weight: 700;
+      color: #166534;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .solution-text {
+      font-size: 0.92rem;
+      color: #14532d;
+      line-height: 1.6;
+    }
+
+    .btn-retake {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-retake:hover {
+      background: var(--primary-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="header-left">
+      <div class="eu-logo-badge">
+        <div class="eu-star-logo">★</div>
+        <div class="logo-text-wrap">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span class="logo-title">Instituto Europeo Simulator</span>
+            <span class="test-level-badge">Set B • Intermediate</span>
+          </div>
+          <span class="logo-sub">Numerical Reasoning Test • 10 Questions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div id="exam-timer" class="timer-pill" title="Time remaining: 2 minutes per question (Official EPSO format)">
+        <span>⏱️</span>
+        <span id="timer-display">20min 00s</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <a href="epso_simulator_en.html" class="switch-test-btn" title="Switch to Set A (Foundation Level)">
+        <span>← Set A (Foundation)</span>
+      </a>
+      <div class="candidate-pill">
+        <span>👤</span>
+        <span>Candidate: <strong>Gregorio</strong></span>
+      </div>
+      <button id="btn-toggle-calculator" class="tool-icon-btn" title="Open Official Calculator (Alt+C)">
+        <span>🧮</span>
+        <span>Calculator</span>
+      </button>
+      <button id="btn-toggle-notepad" class="tool-icon-btn" title="Open Scratchpad / Notes (Alt+N)">
+        <span>📝</span>
+        <span>Notepad</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- TEST WORKSPACE -->
+  <main class="exam-wrapper" id="exam-workspace">
+    <div class="question-card">
+      <div class="question-header">
+        <span class="question-number-badge" id="q-counter">Question 1 / 10</span>
+        <button id="btn-flag" class="btn-flag-toggle" title="Flag this question to review later (Key: F)">
+          <span id="flag-icon">🔖</span>
+          <span id="flag-label">Flag for review</span>
+        </button>
+      </div>
+
+      <h2 class="question-prompt" id="q-prompt">Loading question...</h2>
+
+      <!-- Visual Area (Table or SVG Chart) -->
+      <div class="visual-wrapper" id="visual-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Multiple Choice Options -->
+      <div class="options-title">Select one correct answer:</div>
+      <div class="options-list" id="options-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <!-- FIXED BOTTOM NAVIGATION BAR -->
+  <nav class="bottom-navbar" id="bottom-navbar">
+    <button id="btn-prev" class="nav-arrow-btn" title="Previous question (←)" disabled>
+      ←
+    </button>
+
+    <div class="nav-question-matrix" id="nav-matrix">
+      <!-- 10 Question Circles -->
+    </div>
+
+    <div class="nav-right-actions">
+      <button id="btn-open-overview" class="btn-overview" title="Review all question statuses">
+        <span>^</span>
+        <span>OVERVIEW (10)</span>
+      </button>
+
+      <button id="btn-submit" class="btn-submit-exam" title="Finish and grade test">
+        <span>✓</span>
+        <span>SUBMIT TEST</span>
+      </button>
+
+      <button id="btn-next" class="nav-arrow-btn btn-next-active" title="Next question (→)">
+        →
+      </button>
+    </div>
+  </nav>
+
+  <!-- RESULTS SCREEN (HIDDEN INITIALLY) -->
+  <section class="results-container" id="results-view" style="display:none;">
+    <div class="results-summary-card">
+      <div id="results-badge" class="results-score-badge pass">8/10</div>
+      <h2 class="result-outcome-title" id="results-title">Test Completed Successfully!</h2>
+      <p class="result-outcome-desc" id="results-desc">
+        You have completed Set B (Intermediate Level) of the EPSO AD5 Numerical Reasoning Test. Here is your detailed score and step-by-step breakdown.
+      </p>
+
+      <div class="stats-pills">
+        <div class="stat-pill">
+          <div class="stat-val" id="stat-score">8 / 10</div>
+          <div class="stat-lbl">Final Score</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val" id="stat-percent">80%</div>
+          <div class="stat-lbl">Percentage</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val" id="stat-time">15m 10s</div>
+          <div class="stat-lbl">Time Elapsed</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val" id="stat-status" style="color:#16a34a;">PASSED</div>
+          <div class="stat-lbl">EPSO Threshold (≥ 50%)</div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:1rem;">
+        <button id="btn-retake" class="btn-retake">🔄 Retake Set B</button>
+        <a href="epso_simulator_en.html" class="btn-retake" style="background:#475569; text-decoration:none;">Go to Set A (Foundation)</a>
+      </div>
+    </div>
+
+    <div class="review-section-title">
+      <span>Question-by-Question Detailed Review & Step-by-Step Solutions</span>
+    </div>
+
+    <div id="review-cards-list">
+      <!-- Generated dynamically -->
+    </div>
+  </section>
+
+  <!-- FLOATING CALCULATOR -->
+  <div id="calc-win" class="floating-window hidden" style="top:75px; right:30px;">
+    <div class="window-header" id="calc-drag-handle">
+      <div class="window-title">
+        <span>🧮</span>
+        <span>Official Basic Calculator</span>
+      </div>
+      <button class="window-close-btn" id="btn-close-calc">✕</button>
+    </div>
+    <div class="calc-screen">
+      <div class="calc-history" id="calc-history">&nbsp;</div>
+      <div class="calc-main-display" id="calc-display">0</div>
+    </div>
+    <div class="calc-pad">
+      <button class="calc-btn btn-mem" data-action="mc">MC</button>
+      <button class="calc-btn btn-mem" data-action="mr">MR</button>
+      <button class="calc-btn btn-mem" data-action="m-minus">M-</button>
+      <button class="calc-btn btn-mem" data-action="m-plus">M+</button>
+
+      <button class="calc-btn" data-action="c">C</button>
+      <button class="calc-btn" data-action="ce">CE</button>
+      <button class="calc-btn" data-action="backspace">⌫</button>
+      <button class="calc-btn btn-op" data-action="div">÷</button>
+
+      <button class="calc-btn" data-num="7">7</button>
+      <button class="calc-btn" data-num="8">8</button>
+      <button class="calc-btn" data-num="9">9</button>
+      <button class="calc-btn btn-op" data-action="mul">×</button>
+
+      <button class="calc-btn" data-num="4">4</button>
+      <button class="calc-btn" data-num="5">5</button>
+      <button class="calc-btn" data-num="6">6</button>
+      <button class="calc-btn btn-op" data-action="sub">-</button>
+
+      <button class="calc-btn" data-num="1">1</button>
+      <button class="calc-btn" data-num="2">2</button>
+      <button class="calc-btn" data-num="3">3</button>
+      <button class="calc-btn btn-op" data-action="add">+</button>
+
+      <button class="calc-btn" data-action="sqrt">√</button>
+      <button class="calc-btn" data-num="0">0</button>
+      <button class="calc-btn" data-action="dot">.</button>
+      <button class="calc-btn btn-op" data-action="pct">%</button>
+
+      <button class="calc-btn btn-eq" data-action="eq" style="grid-column: span 4;">=</button>
+    </div>
+  </div>
+
+  <!-- FLOATING NOTEPAD -->
+  <div id="notepad-win" class="floating-window hidden" style="top:75px; left:30px; width:340px;">
+    <div class="window-header" id="notepad-drag-handle">
+      <div class="window-title">
+        <span>📝</span>
+        <span>Scratchpad / Rough Work</span>
+      </div>
+      <button class="window-close-btn" id="btn-close-notepad">✕</button>
+    </div>
+    <textarea id="notepad-text" class="notepad-area" placeholder="Type your rough calculations or notes here..."></textarea>
+    <div class="notepad-bar">
+      <span id="notepad-chars">0 characters</span>
+      <div>
+        <button id="btn-copy-notes" style="background:none; border:1px solid #cbd5e1; border-radius:4px; padding:2px 6px; font-size:0.75rem; cursor:pointer;">Copy</button>
+        <button id="btn-clear-notes" style="background:none; border:1px solid #cbd5e1; border-radius:4px; padding:2px 6px; font-size:0.75rem; cursor:pointer; margin-left:4px;">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW MODAL -->
+  <div id="overview-modal" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Test Overview - Set B (10 Questions)</h3>
+        <button class="window-close-btn" id="btn-close-overview">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
+          Click on any question number below to jump directly to it:
+        </p>
+        <div class="overview-grid" id="modal-overview-grid">
+          <!-- Populated by JS -->
+        </div>
+        <div style="display:flex; justify-content:space-around; background:#f8fafc; border:1px solid var(--border); padding:0.75rem; border-radius:8px; font-size:0.8rem; margin-top:1rem;">
+          <div><strong id="modal-answered-count">0</strong> Answered</div>
+          <div><strong id="modal-unanswered-count">10</strong> Unanswered</div>
+          <div><strong id="modal-flagged-count">0</strong> Flagged</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-overview" id="btn-modal-return">Return to Test</button>
+        <button class="btn-submit-exam" id="btn-modal-submit">Submit Test Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM SUBMISSION MODAL -->
+  <div id="confirm-modal" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="confirm-title">Finish Test Confirmation</h3>
+        <button class="window-close-btn" id="btn-close-confirm">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-text" style="font-size:0.95rem; line-height:1.6; color:#334155;">
+          Are you sure you want to finish and submit your test now?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-overview" id="btn-cancel-submit">Keep Working</button>
+        <button class="btn-submit-exam" id="btn-final-confirm">Yes, Submit Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEST DATA & LOGIC -->
+  <script>
+    // 10 BRAND NEW INTERMEDIATE NUMERICAL REASONING QUESTIONS (EPSO AD5 FORMAT - SET B)
+    // 2 minutes per question -> 20 minutes (1200 seconds)
+    // Designed for 2 to 3 straightforward arithmetic steps (Gregorio's Method)
+    const QUESTIONS_DATA = [
+      {
+        id: 1,
+        title: "International Trade in Goods (Exports vs Imports)",
+        prompt: "In 2025, by what percentage did the Netherlands' total exports exceed its total imports?",
+        visualType: "table",
+        visualTitle: "EU Member States: Annual Trade in Goods (2025, in € Billion)",
+        tableData: {
+          headers: ["Member State", "Total Exports (€ Billion)", "Total Imports (€ Billion)", "Trade Balance (€ Billion)"],
+          rows: [
+            ["Netherlands", "€720", "€640", "+€80"],
+            ["Belgium", "€450", "€480", "-€30"],
+            ["Italy", "€560", "€510", "+€50"],
+            ["Poland", "€320", "€340", "-€20"],
+            ["Spain", "€380", "€420", "-€40"]
+          ]
+        },
+        options: [
+          { letter: "A", text: "11.2%" },
+          { letter: "B", text: "12.5%" },
+          { letter: "C", text: "14.0%" },
+          { letter: "D", text: "15.2%" },
+          { letter: "E", text: "16.5%" }
+        ],
+        correct: "B",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Calculate the difference between exports and imports for Netherlands: €720B - €640B = €80B excess.<br>2. Divide the excess by the baseline imports: 80 ÷ 640 = 0.125 = <strong>12.5%</strong>."
+      },
+      {
+        id: 2,
+        title: "High-Speed Rail Passenger Traffic Growth",
+        prompt: "Between 2024 and 2025, what was the percentage increase in high-speed rail passenger volume in Spain?",
+        visualType: "svg_grouped_rail",
+        visualTitle: "High-Speed Rail Passenger Volume: 2024 vs 2025 (in millions of passenger-km)",
+        options: [
+          { letter: "A", text: "18.0%" },
+          { letter: "B", text: "20.0%" },
+          { letter: "C", text: "22.5%" },
+          { letter: "D", text: "25.0%" },
+          { letter: "E", text: "30.0%" }
+        ],
+        correct: "D",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Read Spain's passenger traffic: 40 million (2024) and 50 million (2025). Increase = 50 - 40 = 10 million.<br>2. Calculate percentage growth: (10 ÷ 40) × 100% = <strong>25.0%</strong>."
+      },
+      {
+        id: 3,
+        title: "Inflation vs Wage Growth (Real Purchasing Power)",
+        prompt: "In Portugal, if average monthly wages grow by 6.0% while consumer prices inflate by 2.0%, what is the estimated net real wage increase in euros per month? (Real wage growth rate % ≈ Wage growth % - Inflation %)",
+        visualType: "table",
+        visualTitle: "Annual Consumer Price Inflation and Nominal Wage Growth (2025)",
+        tableData: {
+          headers: ["Country", "Nominal Wage Growth (%)", "Inflation Rate (%)", "Average Monthly Wage (€)"],
+          rows: [
+            ["Sweden", "+4.8%", "+2.3%", "€3,500"],
+            ["Austria", "+5.5%", "+3.5%", "€3,600"],
+            ["Portugal", "+6.0%", "+2.0%", "€1,800"],
+            ["Czechia", "+7.2%", "+3.2%", "€1,900"],
+            ["Ireland", "+4.5%", "+1.5%", "€4,000"]
+          ]
+        },
+        options: [
+          { letter: "A", text: "€72" },
+          { letter: "B", text: "€64" },
+          { letter: "C", text: "€80" },
+          { letter: "D", text: "€90" },
+          { letter: "E", text: "€54" }
+        ],
+        correct: "A",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Compute net real growth percentage: 6.0% - 2.0% = 4.0%.<br>2. Apply rate to Portugal's monthly wage: €1,800 × 4.0% = 1,800 × 0.04 = <strong>€72</strong>."
+      },
+      {
+        id: 4,
+        title: "Certified Organic Agricultural Land Share",
+        prompt: "What is the total combined area of certified organic agricultural land in Austria and Sweden (in thousands of hectares, where 1 million ha = 1,000 thousand ha)?",
+        visualType: "svg_horizontal_organic",
+        visualTitle: "Total Agricultural Area & Certified Organic Farming Share (2025)",
+        options: [
+          { letter: "A", text: "1,050 thousand ha" },
+          { letter: "B", text: "1,100 thousand ha" },
+          { letter: "C", text: "1,150 thousand ha" },
+          { letter: "D", text: "1,200 thousand ha" },
+          { letter: "E", text: "1,250 thousand ha" }
+        ],
+        correct: "E",
+        solution: "<strong>Gregorio's 3-Step Method:</strong><br>1. Austria organic area: 2,500 thousand ha × 26% = 650 thousand ha.<br>2. Sweden organic area: 3,000 thousand ha × 20% = 600 thousand ha.<br>3. Total combined: 650 + 600 = <strong>1,250 thousand ha</strong>."
+      },
+      {
+        id: 5,
+        title: "Cybersecurity Incident Response Budget Allocation",
+        prompt: "How much more funding (in millions of euros) is allocated to Financial Services than to Healthcare & Hospitals from the European Cybersecurity Agency (ENISA) budget?",
+        visualType: "svg_donut_cyber",
+        visualTitle: "EU Cybersecurity Agency (ENISA): Budget Allocation 2026 (Total: €250 Million)",
+        options: [
+          { letter: "A", text: "€15 million" },
+          { letter: "B", text: "€20 million" },
+          { letter: "C", text: "€25 million" },
+          { letter: "D", text: "€30 million" },
+          { letter: "E", text: "€35 million" }
+        ],
+        correct: "B",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Calculate the percentage difference between Financial Services (32%) and Healthcare (24%): 32% - 24% = 8%.<br>2. Multiply by the total budget: €250 million × 8% = 250 × 0.08 = <strong>€20 million</strong>."
+      },
+      {
+        id: 6,
+        title: "Demographic Aging & Age Dependency Ratio",
+        prompt: "The Age Dependency Ratio is defined as: ((Youth + Elderly) ÷ Working Age) × 100%. What is the Age Dependency Ratio for Country Alpha?",
+        visualType: "table",
+        visualTitle: "Population Distribution by Age Bracket (2025, in Millions of Inhabitants)",
+        tableData: {
+          headers: ["Country", "Youth (0-14 yrs)", "Working Age (15-64 yrs)", "Elderly (65+ yrs)", "Total Population"],
+          rows: [
+            ["Country Alpha", "1.8", "6.0", "2.2", "10.0"],
+            ["Country Beta", "2.4", "8.0", "1.6", "12.0"],
+            ["Country Gamma", "3.0", "10.0", "2.0", "15.0"],
+            ["Country Delta", "1.2", "4.0", "0.8", "6.0"],
+            ["Country Epsilon", "1.5", "5.0", "1.5", "8.0"]
+          ]
+        },
+        options: [
+          { letter: "A", text: "66.7%" },
+          { letter: "B", text: "62.5%" },
+          { letter: "C", text: "70.0%" },
+          { letter: "D", text: "72.5%" },
+          { letter: "E", text: "75.0%" }
+        ],
+        correct: "A",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Total dependent population in Country Alpha: 1.8 (Youth) + 2.2 (Elderly) = 4.0 million.<br>2. Divide by working age population: (4.0 ÷ 6.0) × 100% = 0.6667 = <strong>66.7%</strong>."
+      },
+      {
+        id: 7,
+        title: "Greenhouse Gas (GHG) Emissions by Economic Sector",
+        prompt: "In Region South, what percentage of total greenhouse gas emissions was generated by the Transport sector in 2025?",
+        visualType: "svg_stacked_emissions",
+        visualTitle: "Annual GHG Emissions by Sector in 2025 (in Million Tonnes CO₂ equivalent)",
+        options: [
+          { letter: "A", text: "24.0%" },
+          { letter: "B", text: "26.5%" },
+          { letter: "C", text: "30.0%" },
+          { letter: "D", text: "33.5%" },
+          { letter: "E", text: "36.0%" }
+        ],
+        correct: "C",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Sum Region South's total emissions: 60 (Energy) + 45 (Transport) + 30 (Industry) + 15 (Agriculture) = 150 Mt CO₂e.<br>2. Compute Transport share: (45 ÷ 150) × 100% = <strong>30.0%</strong>."
+      },
+      {
+        id: 8,
+        title: "Pharmaceutical Drug Evaluations & Approvals",
+        prompt: "How many Oncology and Cardiology drug dossiers were approved in total by the European Medicines Agency in 2025?",
+        visualType: "table",
+        visualTitle: "New Drug Authorisation Evaluations & Audit Fees (2025)",
+        tableData: {
+          headers: ["Therapeutic Class", "Evaluated Dossiers", "Approval Rate (%)", "Average Audit Fee (€)"],
+          rows: [
+            ["Oncology (Cancer)", "50", "80%", "€120,000"],
+            ["Cardiology", "40", "75%", "€100,000"],
+            ["Rare Diseases (Orphan)", "30", "90%", "€80,000"],
+            ["Infectious Diseases", "60", "70%", "€90,000"],
+            ["Neurology", "25", "60%", "€110,000"]
+          ]
+        },
+        options: [
+          { letter: "A", text: "58 dossiers" },
+          { letter: "B", text: "64 dossiers" },
+          { letter: "C", text: "66 dossiers" },
+          { letter: "D", text: "70 dossiers" },
+          { letter: "E", text: "76 dossiers" }
+        ],
+        correct: "D",
+        solution: "<strong>Gregorio's 3-Step Method:</strong><br>1. Oncology approved dossiers: 50 × 80% = 40 dossiers.<br>2. Cardiology approved dossiers: 40 × 75% = 30 dossiers.<br>3. Total approved: 40 + 30 = <strong>70 dossiers</strong>."
+      },
+      {
+        id: 9,
+        title: "Higher Education Financing: Tuition vs Government Subsidy",
+        prompt: "In the Faculty of Engineering, what percentage of the total annual cost per student is covered by the Government Subsidy?",
+        visualType: "svg_grouped_education",
+        visualTitle: "Annual Cost per University Student: Tuition Fee vs Government Subsidy (in €)",
+        options: [
+          { letter: "A", text: "75.0%" },
+          { letter: "B", text: "80.0%" },
+          { letter: "C", text: "85.0%" },
+          { letter: "D", text: "88.0%" },
+          { letter: "E", text: "92.5%" }
+        ],
+        correct: "C",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Total cost per Engineering student: €1,200 (Fee) + €6,800 (Subsidy) = €8,000.<br>2. Calculate Government share: (6,800 ÷ 8,000) × 100% = 0.85 = <strong>85.0%</strong>."
+      },
+      {
+        id: 10,
+        title: "5G Telecommunications Coverage Expansion",
+        prompt: "If Poland had a total population of 38 million in 2025, how many more people had 5G mobile coverage in 2025 compared to 2022?",
+        visualType: "svg_line_5g",
+        visualTitle: "5G Population Coverage Growth (2022 - 2025, in % of population)",
+        options: [
+          { letter: "A", text: "14.8 million" },
+          { letter: "B", text: "15.6 million" },
+          { letter: "C", text: "16.2 million" },
+          { letter: "D", text: "16.8 million" },
+          { letter: "E", text: "17.1 million" }
+        ],
+        correct: "E",
+        solution: "<strong>Gregorio's 2-Step Method:</strong><br>1. Find coverage percentage point increase for Poland: 75% (in 2025) - 30% (in 2022) = 45%.<br>2. Multiply by total population: 38 million × 45% = 38 × 0.45 = <strong>17.1 million people</strong>."
+      }
+    ];
+
+    // STATE
+    let currentIndex = 0;
+    let userAnswers = new Array(10).fill(null);
+    let flaggedQuestions = new Array(10).fill(false);
+    let timeRemaining = 1200; // 20 minutes (2 min/question)
+    let timerInterval = null;
+    let isFinished = false;
+
+    // INIT
+    window.addEventListener('DOMContentLoaded', () => {
+      initMatrix();
+      renderQuestion(0);
+      startTimer();
+      setupEventListeners();
+      setupCalculator();
+      setupNotepad();
+    });
+
+    // NAVIGATION MATRIX
+    function initMatrix() {
+      const matrix = document.getElementById('nav-matrix');
+      matrix.innerHTML = '';
+      for (let i = 0; i < 10; i++) {
+        const circle = document.createElement('div');
+        circle.className = `nav-circle ${i === 0 ? 'active' : ''}`;
+        circle.id = `nav-c-${i}`;
+        circle.textContent = (i + 1);
+        circle.title = `Jump to Question ${i + 1}`;
+        circle.addEventListener('click', () => {
+          if (!isFinished) {
+            goToQuestion(i);
+          }
+        });
+        matrix.appendChild(circle);
+      }
+    }
+
+    function updateMatrix() {
+      for (let i = 0; i < 10; i++) {
+        const circle = document.getElementById(`nav-c-${i}`);
+        if (!circle) continue;
+        circle.className = 'nav-circle';
+        if (i === currentIndex) circle.classList.add('active');
+        if (userAnswers[i] !== null) circle.classList.add('answered');
+        if (flaggedQuestions[i]) circle.classList.add('flagged');
+      }
+    }
+
+    // RENDER QUESTION
+    function renderQuestion(index) {
+      currentIndex = index;
+      const q = QUESTIONS_DATA[index];
+
+      // Counter
+      document.getElementById('q-counter').textContent = `Question ${index + 1} / 10`;
+
+      // Prompt
+      document.getElementById('q-prompt').textContent = q.prompt;
+
+      // Flag state
+      const btnFlag = document.getElementById('btn-flag');
+      if (flaggedQuestions[index]) {
+        btnFlag.classList.add('flagged');
+        document.getElementById('flag-label').textContent = 'Flagged for review';
+      } else {
+        btnFlag.classList.remove('flagged');
+        document.getElementById('flag-label').textContent = 'Flag for review';
+      }
+
+      // Render Visual
+      renderVisual(q);
+
+      // Render Options
+      const optContainer = document.getElementById('options-container');
+      optContainer.innerHTML = '';
+      const currentSelected = userAnswers[index];
+
+      q.options.forEach((opt, optIdx) => {
+        const isSelected = currentSelected === opt.letter;
+        const item = document.createElement('div');
+        item.className = `option-item ${isSelected ? 'selected' : ''}`;
+        item.setAttribute('data-letter', opt.letter);
+        item.innerHTML = `
+          <div class="option-radio">
+            <div class="option-radio-dot"></div>
+          </div>
+          <div class="option-letter">${opt.letter})</div>
+          <div class="option-text">${opt.text}</div>
+          <div class="option-shortcut">Key [${optIdx + 1}] or [${opt.letter}]</div>
+        `;
+        item.addEventListener('click', () => {
+          selectAnswer(opt.letter);
+        });
+        optContainer.appendChild(item);
+      });
+
+      // Update Nav Buttons
+      document.getElementById('btn-prev').disabled = (index === 0);
+      const btnNext = document.getElementById('btn-next');
+      if (index === 9) {
+        btnNext.disabled = true;
+        btnNext.classList.remove('btn-next-active');
+      } else {
+        btnNext.disabled = false;
+        btnNext.classList.add('btn-next-active');
+      }
+
+      updateMatrix();
+    }
+
+    // RENDER VISUAL (TABLES / HIGH RESOLUTION SVG CHARTS)
+    function renderVisual(q) {
+      const container = document.getElementById('visual-container');
+      container.innerHTML = `<div class="visual-title">${q.visualTitle}</div>`;
+
+      if (q.visualType === 'table') {
+        let tableHtml = '<div class="table-container"><table class="official-table">';
+        // Headers
+        tableHtml += '<thead><tr>';
+        q.tableData.headers.forEach(h => {
+          tableHtml += `<th>${h}</th>`;
+        });
+        tableHtml += '</tr></thead><tbody>';
+        // Rows
+        q.tableData.rows.forEach(r => {
+          tableHtml += '<tr>';
+          r.forEach((cell, idx) => {
+            if (idx === 0) {
+              tableHtml += `<td class="row-header">${cell}</td>`;
+            } else {
+              tableHtml += `<td><strong>${cell}</strong></td>`;
+            }
+          });
+          tableHtml += '</tr>';
+        });
+        tableHtml += '</tbody></table></div>';
+        container.innerHTML += tableHtml;
+      } 
+      else if (q.visualType === 'svg_grouped_rail') {
+        // Grouped Bar Chart: High-Speed Rail 2024 vs 2025
+        container.innerHTML += `
+          <div class="chart-svg-container">
+            <svg class="chart-svg" viewBox="0 0 680 290" width="680" height="290">
+              <rect width="680" height="290" fill="#ffffff"/>
+              <!-- Legend -->
+              <g transform="translate(240, 15)">
+                <rect x="0" y="0" width="16" height="12" fill="#64748b" rx="2"/>
+                <text x="24" y="10" font-size="12" fill="#334155" font-weight="600">2024</text>
+
+                <rect x="90" y="0" width="16" height="12" fill="#0284c7" rx="2"/>
+                <text x="114" y="10" font-size="12" fill="#334155" font-weight="600">2025</text>
+              </g>
+
+              <!-- Grid -->
+              <line x1="80" y1="230" x2="630" y2="230" stroke="#cbd5e1" stroke-width="1.5"/>
+              <line x1="80" y1="180" x2="630" y2="180" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="130" x2="630" y2="130" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="80" x2="630" y2="80" stroke="#f1f5f9" stroke-width="1"/>
+
+              <!-- Y Axis labels (Scale: 1M = 1.25px) -->
+              <text x="70" y="234" font-size="11" fill="#64748b" text-anchor="end">0M</text>
+              <text x="70" y="184" font-size="11" fill="#64748b" text-anchor="end">40M</text>
+              <text x="70" y="134" font-size="11" fill="#64748b" text-anchor="end">80M</text>
+              <text x="70" y="84" font-size="11" fill="#64748b" text-anchor="end">120M</text>
+
+              <!-- France: 110M -> 121M -->
+              <g transform="translate(100, 0)">
+                <rect x="0" y="92" width="38" height="138" fill="#64748b" rx="2"/>
+                <text x="19" y="84" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">110M</text>
+                <rect x="42" y="78" width="38" height="152" fill="#0284c7" rx="2"/>
+                <text x="61" y="70" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">121M</text>
+                <text x="40" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">France (TGV)</text>
+              </g>
+
+              <!-- Spain: 40M -> 50M (Target) -->
+              <g transform="translate(235, 0)">
+                <rect x="0" y="180" width="38" height="50" fill="#64748b" rx="2"/>
+                <text x="19" y="172" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">40M</text>
+                <rect x="42" y="167" width="38" height="63" fill="#0284c7" rx="2"/>
+                <text x="61" y="159" font-size="11" font-weight="800" fill="#0369a1" text-anchor="middle">50M</text>
+                <text x="40" y="252" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle">Spain (AVE)</text>
+              </g>
+
+              <!-- Germany: 90M -> 99M -->
+              <g transform="translate(370, 0)">
+                <rect x="0" y="117" width="38" height="113" fill="#64748b" rx="2"/>
+                <text x="19" y="109" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">90M</text>
+                <rect x="42" y="106" width="38" height="124" fill="#0284c7" rx="2"/>
+                <text x="61" y="98" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">99M</text>
+                <text x="40" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Germany (ICE)</text>
+              </g>
+
+              <!-- Italy: 50M -> 60M -->
+              <g transform="translate(505, 0)">
+                <rect x="0" y="167" width="38" height="63" fill="#64748b" rx="2"/>
+                <text x="19" y="159" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">50M</text>
+                <rect x="42" y="155" width="38" height="75" fill="#0284c7" rx="2"/>
+                <text x="61" y="147" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">60M</text>
+                <text x="40" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Italy (Freccia)</text>
+              </g>
+            </svg>
+          </div>
+        `;
+      }
+      else if (q.visualType === 'svg_horizontal_organic') {
+        // Horizontal Bar Chart: Organic Area Share & Total Area
+        container.innerHTML += `
+          <div class="chart-svg-container">
+            <svg class="chart-svg" viewBox="0 0 680 270" width="680" height="270">
+              <rect width="680" height="270" fill="#ffffff"/>
+              <!-- Axis -->
+              <line x1="160" y1="20" x2="160" y2="220" stroke="#94a3b8" stroke-width="1.5"/>
+              <line x1="160" y1="220" x2="620" y2="220" stroke="#cbd5e1" stroke-width="1.5"/>
+
+              <!-- Grid -->
+              <text x="160" y="238" font-size="11" fill="#64748b" text-anchor="middle">0%</text>
+              <line x1="280" y1="20" x2="280" y2="220" stroke="#f1f5f9" stroke-width="1"/>
+              <text x="280" y="238" font-size="11" fill="#64748b" text-anchor="middle">10%</text>
+              <line x1="400" y1="20" x2="400" y2="220" stroke="#f1f5f9" stroke-width="1"/>
+              <text x="400" y="238" font-size="11" fill="#64748b" text-anchor="middle">20%</text>
+              <line x1="520" y1="20" x2="520" y2="220" stroke="#f1f5f9" stroke-width="1"/>
+              <text x="520" y="238" font-size="11" fill="#64748b" text-anchor="middle">30%</text>
+
+              <!-- Austria: Total 2.5M ha, Organic 26% -->
+              <text x="150" y="52" font-size="12" font-weight="700" fill="#0f172a" text-anchor="end">Austria (2.5M ha)</text>
+              <rect x="160" y="36" width="312" height="24" fill="#10b981" rx="3"/>
+              <text x="480" y="52" font-size="12" font-weight="800" fill="#047857">26% Organic</text>
+
+              <!-- Estonia: Total 1.0M ha, Organic 23% -->
+              <text x="150" y="92" font-size="12" font-weight="600" fill="#1e293b" text-anchor="end">Estonia (1.0M ha)</text>
+              <rect x="160" y="76" width="276" height="24" fill="#3b82f6" rx="3"/>
+              <text x="444" y="92" font-size="12" font-weight="700" fill="#1d4ed8">23% Organic</text>
+
+              <!-- Sweden: Total 3.0M ha, Organic 20% -->
+              <text x="150" y="132" font-size="12" font-weight="700" fill="#0f172a" text-anchor="end">Sweden (3.0M ha)</text>
+              <rect x="160" y="116" width="240" height="24" fill="#10b981" rx="3"/>
+              <text x="408" y="132" font-size="12" font-weight="800" fill="#047857">20% Organic</text>
+
+              <!-- Spain: Total 24.0M ha, Organic 10% -->
+              <text x="150" y="172" font-size="12" font-weight="600" fill="#1e293b" text-anchor="end">Spain (24.0M ha)</text>
+              <rect x="160" y="156" width="120" height="24" fill="#f59e0b" rx="3"/>
+              <text x="288" y="172" font-size="12" font-weight="700" fill="#b45309">10% Organic</text>
+
+              <!-- France: Total 28.0M ha, Organic 10% -->
+              <text x="150" y="212" font-size="12" font-weight="600" fill="#1e293b" text-anchor="end">France (28.0M ha)</text>
+              <rect x="160" y="196" width="120" height="24" fill="#8b5cf6" rx="3"/>
+              <text x="288" y="212" font-size="12" font-weight="700" fill="#6d28d9">10% Organic</text>
+            </svg>
+          </div>
+        `;
+      }
+      else if (q.visualType === 'svg_donut_cyber') {
+        // Donut Chart: Cybersecurity Budget
+        container.innerHTML += `
+          <div class="chart-svg-container">
+            <svg class="chart-svg" viewBox="0 0 650 280" width="650" height="280">
+              <rect width="650" height="280" fill="#ffffff"/>
+              <!-- Donut Center -->
+              <g transform="translate(170, 140)">
+                <!-- 32% Financial: 0 to 115.2 deg -->
+                <path d="M 0 -95 A 95 95 0 0 1 85.94 40.42 L 49.75 23.4 A 55 55 0 0 0 0 -55 Z" fill="#0284c7"/>
+                <!-- 24% Healthcare: 115.2 to 201.6 deg -->
+                <path d="M 85.94 40.42 A 95 95 0 0 1 -35.03 88.31 L -20.28 51.13 A 55 55 0 0 0 49.75 23.4 Z" fill="#ef4444"/>
+                <!-- 20% Energy: 201.6 to 273.6 deg -->
+                <path d="M -35.03 88.31 A 95 95 0 0 1 -94.81 -5.96 L -54.89 -3.45 A 55 55 0 0 0 -20.28 51.13 Z" fill="#f59e0b"/>
+                <!-- 16% Transport: 273.6 to 331.2 deg -->
+                <path d="M -94.81 -5.96 A 95 95 0 0 1 -45.76 -83.21 L -26.5 -48.18 A 55 55 0 0 0 -54.89 -3.45 Z" fill="#10b981"/>
+                <!-- 8% Public Admin: 331.2 to 360 deg -->
+                <path d="M -45.76 -83.21 A 95 95 0 0 1 0 -95 L 0 -55 A 55 55 0 0 0 -26.5 -48.18 Z" fill="#8b5cf6"/>
+
+                <circle cx="0" cy="0" r="50" fill="#ffffff"/>
+                <text x="0" y="-5" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">TOTAL</text>
+                <text x="0" y="16" font-size="13" font-weight="700" fill="#2563eb" text-anchor="middle">€250 M</text>
+              </g>
+
+              <!-- Legend -->
+              <g transform="translate(320, 45)">
+                <rect x="0" y="0" width="16" height="16" fill="#0284c7" rx="3"/>
+                <text x="26" y="13" font-size="13" font-weight="600" fill="#1e293b">Financial Services</text>
+                <text x="26" y="30" font-size="12" font-weight="700" fill="#0369a1">32% (€80 Million)</text>
+
+                <rect x="0" y="45" width="16" height="16" fill="#ef4444" rx="3"/>
+                <text x="26" y="58" font-size="13" font-weight="600" fill="#1e293b">Healthcare & Hospitals</text>
+                <text x="26" y="75" font-size="12" font-weight="700" fill="#b91c1c">24% (€60 Million)</text>
+
+                <rect x="0" y="90" width="16" height="16" fill="#f59e0b" rx="3"/>
+                <text x="26" y="103" font-size="13" font-weight="600" fill="#1e293b">Energy & Power Grids</text>
+                <text x="26" y="120" font-size="12" font-weight="700" fill="#b45309">20% (€50 Million)</text>
+
+                <rect x="0" y="135" width="16" height="16" fill="#10b981" rx="3"/>
+                <text x="26" y="148" font-size="13" font-weight="600" fill="#1e293b">Transport & Logistics</text>
+                <text x="26" y="165" font-size="12" font-weight="700" fill="#047857">16% (€40 Million)</text>
+
+                <rect x="0" y="180" width="16" height="16" fill="#8b5cf6" rx="3"/>
+                <text x="26" y="193" font-size="13" font-weight="600" fill="#1e293b">Public Administration</text>
+                <text x="26" y="210" font-size="12" font-weight="700" fill="#6d28d9">8% (€20 Million)</text>
+              </g>
+            </svg>
+          </div>
+        `;
+      }
+      else if (q.visualType === 'svg_stacked_emissions') {
+        // Stacked Column: GHG Emissions
+        container.innerHTML += `
+          <div class="chart-svg-container">
+            <svg class="chart-svg" viewBox="0 0 680 300" width="680" height="300">
+              <rect width="680" height="300" fill="#ffffff"/>
+              <!-- Legend -->
+              <g transform="translate(130, 15)">
+                <rect x="0" y="0" width="14" height="12" fill="#ef4444" rx="2"/>
+                <text x="20" y="10" font-size="12" fill="#334155" font-weight="600">Energy</text>
+
+                <rect x="90" y="0" width="14" height="12" fill="#0284c7" rx="2"/>
+                <text x="110" y="10" font-size="12" fill="#334155" font-weight="700">Transport</text>
+
+                <rect x="195" y="0" width="14" height="12" fill="#f59e0b" rx="2"/>
+                <text x="215" y="10" font-size="12" fill="#334155" font-weight="600">Industry</text>
+
+                <rect x="295" y="0" width="14" height="12" fill="#10b981" rx="2"/>
+                <text x="315" y="10" font-size="12" fill="#334155" font-weight="600">Agriculture</text>
+              </g>
+
+              <!-- Grid -->
+              <line x1="80" y1="240" x2="620" y2="240" stroke="#cbd5e1" stroke-width="1.5"/>
+              <line x1="80" y1="190" x2="620" y2="190" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="140" x2="620" y2="140" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="90" x2="620" y2="90" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="40" x2="620" y2="40" stroke="#f1f5f9" stroke-width="1"/>
+
+              <!-- Y Axis labels (Scale: 1 Mt = 1.33 px) -->
+              <text x="70" y="244" font-size="11" fill="#64748b" text-anchor="end">0</text>
+              <text x="70" y="194" font-size="11" fill="#64748b" text-anchor="end">35</text>
+              <text x="70" y="144" font-size="11" fill="#64748b" text-anchor="end">75</text>
+              <text x="70" y="94" font-size="11" fill="#64748b" text-anchor="end">110</text>
+              <text x="70" y="44" font-size="11" fill="#64748b" text-anchor="end">150 Mt</text>
+
+              <!-- Region North: Total 100 Mt (40, 30, 20, 10) -->
+              <g transform="translate(110, 0)">
+                <rect x="0" y="187" width="68" height="53" fill="#ef4444"/>
+                <text x="34" y="218" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">40</text>
+                <rect x="0" y="147" width="68" height="40" fill="#0284c7"/>
+                <text x="34" y="172" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">30</text>
+                <rect x="0" y="120" width="68" height="27" fill="#f59e0b"/>
+                <text x="34" y="137" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">20</text>
+                <rect x="0" y="107" width="68" height="13" fill="#10b981" rx="2"/>
+                <text x="34" y="97" font-size="12" font-weight="700" fill="#334155" text-anchor="middle">100 Mt</text>
+                <text x="34" y="260" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Region North</text>
+              </g>
+
+              <!-- Region South: Total 150 Mt (60, 45, 30, 15) Target -->
+              <g transform="translate(240, 0)">
+                <rect x="0" y="160" width="68" height="80" fill="#ef4444"/>
+                <text x="34" y="205" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">60 Energy</text>
+                <rect x="0" y="100" width="68" height="60" fill="#0284c7"/>
+                <text x="34" y="135" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">45 Transp.</text>
+                <rect x="0" y="60" width="68" height="40" fill="#f59e0b"/>
+                <text x="34" y="84" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">30</text>
+                <rect x="0" y="40" width="68" height="20" fill="#10b981" rx="2"/>
+                <text x="34" y="55" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">15</text>
+                <text x="34" y="32" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">150 Mt</text>
+                <text x="34" y="260" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">Region South</text>
+              </g>
+
+              <!-- Region East: Total 130 Mt (55, 25, 35, 15) -->
+              <g transform="translate(370, 0)">
+                <rect x="0" y="167" width="68" height="73" fill="#ef4444"/>
+                <text x="34" y="208" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">55</text>
+                <rect x="0" y="134" width="68" height="33" fill="#0284c7"/>
+                <text x="34" y="154" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">25</text>
+                <rect x="0" y="87" width="68" height="47" fill="#f59e0b"/>
+                <text x="34" y="114" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">35</text>
+                <rect x="0" y="67" width="68" height="20" fill="#10b981" rx="2"/>
+                <text x="34" y="57" font-size="12" font-weight="700" fill="#334155" text-anchor="middle">130 Mt</text>
+                <text x="34" y="260" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Region East</text>
+              </g>
+
+              <!-- Region West: Total 80 Mt (35, 25, 15, 5) -->
+              <g transform="translate(500, 0)">
+                <rect x="0" y="193" width="68" height="47" fill="#ef4444"/>
+                <text x="34" y="221" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">35</text>
+                <rect x="0" y="160" width="68" height="33" fill="#0284c7"/>
+                <text x="34" y="180" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">25</text>
+                <rect x="0" y="140" width="68" height="20" fill="#f59e0b"/>
+                <text x="34" y="154" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">15</text>
+                <rect x="0" y="133" width="68" height="7" fill="#10b981" rx="2"/>
+                <text x="34" y="123" font-size="12" font-weight="700" fill="#334155" text-anchor="middle">80 Mt</text>
+                <text x="34" y="260" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Region West</text>
+              </g>
+            </svg>
+          </div>
+        `;
+      }
+      else if (q.visualType === 'svg_grouped_education') {
+        // Grouped Bar Chart: Higher Education
+        container.innerHTML += `
+          <div class="chart-svg-container">
+            <svg class="chart-svg" viewBox="0 0 680 290" width="680" height="290">
+              <rect width="680" height="290" fill="#ffffff"/>
+              <!-- Legend -->
+              <g transform="translate(200, 15)">
+                <rect x="0" y="0" width="16" height="12" fill="#f59e0b" rx="2"/>
+                <text x="24" y="10" font-size="12" fill="#334155" font-weight="600">Student Tuition Fee</text>
+
+                <rect x="160" y="0" width="16" height="12" fill="#0284c7" rx="2"/>
+                <text x="184" y="10" font-size="12" fill="#334155" font-weight="700">Government Subsidy</text>
+              </g>
+
+              <!-- Grid -->
+              <line x1="80" y1="230" x2="630" y2="230" stroke="#cbd5e1" stroke-width="1.5"/>
+              <line x1="80" y1="180" x2="630" y2="180" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="130" x2="630" y2="130" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="80" y1="80" x2="630" y2="80" stroke="#f1f5f9" stroke-width="1"/>
+
+              <!-- Y Axis labels -->
+              <text x="70" y="234" font-size="11" fill="#64748b" text-anchor="end">€0</text>
+              <text x="70" y="184" font-size="11" fill="#64748b" text-anchor="end">€3,000</text>
+              <text x="70" y="134" font-size="11" fill="#64748b" text-anchor="end">€6,000</text>
+              <text x="70" y="84" font-size="11" fill="#64748b" text-anchor="end">€9,000</text>
+
+              <!-- Medicine: Fee 1,500, Subsidy 8,500 -->
+              <g transform="translate(95, 0)">
+                <rect x="0" y="205" width="36" height="25" fill="#f59e0b" rx="2"/>
+                <text x="18" y="198" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">€1.5k</text>
+                <rect x="40" y="88" width="36" height="142" fill="#0284c7" rx="2"/>
+                <text x="58" y="80" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">€8.5k</text>
+                <text x="38" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Medicine</text>
+              </g>
+
+              <!-- Engineering: Fee 1,200, Subsidy 6,800 (Target) -->
+              <g transform="translate(205, 0)">
+                <rect x="0" y="210" width="36" height="20" fill="#f59e0b" rx="2"/>
+                <text x="18" y="203" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">€1.2k</text>
+                <rect x="40" y="117" width="36" height="113" fill="#0284c7" rx="2"/>
+                <text x="58" y="109" font-size="11" font-weight="800" fill="#0369a1" text-anchor="middle">€6.8k</text>
+                <text x="38" y="252" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle">Engineering</text>
+              </g>
+
+              <!-- Law: Fee 1,000, Subsidy 4,000 -->
+              <g transform="translate(315, 0)">
+                <rect x="0" y="213" width="36" height="17" fill="#f59e0b" rx="2"/>
+                <text x="18" y="206" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">€1.0k</text>
+                <rect x="40" y="163" width="36" height="67" fill="#0284c7" rx="2"/>
+                <text x="58" y="155" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">€4.0k</text>
+                <text x="38" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Law</text>
+              </g>
+
+              <!-- Arts: Fee 800, Subsidy 3,200 -->
+              <g transform="translate(425, 0)">
+                <rect x="0" y="217" width="36" height="13" fill="#f59e0b" rx="2"/>
+                <text x="18" y="210" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">€0.8k</text>
+                <rect x="40" y="177" width="36" height="53" fill="#0284c7" rx="2"/>
+                <text x="58" y="169" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">€3.2k</text>
+                <text x="38" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Arts</text>
+              </g>
+
+              <!-- Science: Fee 1,400, Subsidy 5,600 -->
+              <g transform="translate(535, 0)">
+                <rect x="0" y="207" width="36" height="23" fill="#f59e0b" rx="2"/>
+                <text x="18" y="200" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">€1.4k</text>
+                <rect x="40" y="137" width="36" height="93" fill="#0284c7" rx="2"/>
+                <text x="58" y="129" font-size="11" font-weight="700" fill="#0284c7" text-anchor="middle">€5.6k</text>
+                <text x="38" y="252" font-size="12" font-weight="600" fill="#1e293b" text-anchor="middle">Science</text>
+              </g>
+            </svg>
+          </div>
+        `;
+      }
+      else if (q.visualType === 'svg_line_5g') {
+        // Multi-line Trend: 5G Coverage Growth
+        container.innerHTML += `
+          <div class="chart-svg-container">
+            <svg class="chart-svg" viewBox="0 0 680 280" width="680" height="280">
+              <rect width="680" height="280" fill="#ffffff"/>
+              <!-- Legend -->
+              <g transform="translate(140, 15)">
+                <line x1="0" y1="6" x2="20" y2="6" stroke="#0284c7" stroke-width="3"/>
+                <circle cx="10" cy="6" r="4" fill="#0284c7"/>
+                <text x="28" y="10" font-size="12" font-weight="600" fill="#334155">Finland</text>
+
+                <line x1="105" y1="6" x2="125" y2="6" stroke="#10b981" stroke-width="3"/>
+                <circle cx="115" cy="6" r="4" fill="#10b981"/>
+                <text x="133" y="10" font-size="12" font-weight="600" fill="#334155">Spain</text>
+
+                <line x1="200" y1="6" x2="220" y2="6" stroke="#8b5cf6" stroke-width="3"/>
+                <circle cx="210" cy="6" r="4" fill="#8b5cf6"/>
+                <text x="228" y="10" font-size="12" font-weight="600" fill="#334155">Germany</text>
+
+                <line x1="310" y1="6" x2="330" y2="6" stroke="#ef4444" stroke-width="3.5"/>
+                <circle cx="320" cy="6" r="4" fill="#ef4444"/>
+                <text x="338" y="10" font-size="12" font-weight="700" fill="#0f172a">Poland</text>
+              </g>
+
+              <!-- Grid -->
+              <line x1="70" y1="220" x2="620" y2="220" stroke="#cbd5e1" stroke-width="1.5"/>
+              <line x1="70" y1="180" x2="620" y2="180" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="70" y1="140" x2="620" y2="140" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="70" y1="100" x2="620" y2="100" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="70" y1="60" x2="620" y2="60" stroke="#f1f5f9" stroke-width="1"/>
+
+              <!-- Y Axis labels (Scale: 0% to 100%) -->
+              <text x="60" y="224" font-size="11" fill="#64748b" text-anchor="end">0%</text>
+              <text x="60" y="184" font-size="11" fill="#64748b" text-anchor="end">25%</text>
+              <text x="60" y="144" font-size="11" fill="#64748b" text-anchor="end">50%</text>
+              <text x="60" y="104" font-size="11" fill="#64748b" text-anchor="end">75%</text>
+              <text x="60" y="64" font-size="11" fill="#64748b" text-anchor="end">100%</text>
+
+              <!-- X Axis Years -->
+              <text x="130" y="242" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">2022</text>
+              <text x="270" y="242" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">2023</text>
+              <text x="410" y="242" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">2024</text>
+              <text x="550" y="242" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">2025</text>
+
+              <!-- Finland: 70% (108) -> 80% (92) -> 88% (79) -> 95% (68) -->
+              <polyline points="130,108 270,92 410,79 550,68" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+              <circle cx="130" cy="108" r="4" fill="#0284c7"/>
+              <circle cx="270" cy="92" r="4" fill="#0284c7"/>
+              <circle cx="410" cy="79" r="4" fill="#0284c7"/>
+              <circle cx="550" cy="68" r="4" fill="#0284c7"/>
+              <text x="555" y="64" font-size="11" font-weight="700" fill="#0284c7">95%</text>
+
+              <!-- Spain: 60% (124) -> 72% (105) -> 82% (89) -> 90% (76) -->
+              <polyline points="130,124 270,105 410,89 550,76" fill="none" stroke="#10b981" stroke-width="2.5"/>
+              <circle cx="130" cy="124" r="4" fill="#10b981"/>
+              <circle cx="270" cy="105" r="4" fill="#10b981"/>
+              <circle cx="410" cy="89" r="4" fill="#10b981"/>
+              <circle cx="550" cy="76" r="4" fill="#10b981"/>
+              <text x="555" y="86" font-size="11" font-weight="700" fill="#10b981">90%</text>
+
+              <!-- Germany: 50% (140) -> 65% (116) -> 78% (95) -> 86% (82) -->
+              <polyline points="130,140 270,116 410,95 550,82" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
+              <circle cx="130" cy="140" r="4" fill="#8b5cf6"/>
+              <circle cx="270" cy="116" r="4" fill="#8b5cf6"/>
+              <circle cx="410" cy="95" r="4" fill="#8b5cf6"/>
+              <circle cx="550" cy="82" r="4" fill="#8b5cf6"/>
+              <text x="555" y="100" font-size="11" font-weight="700" fill="#8b5cf6">86%</text>
+
+              <!-- Poland: 30% (y=172) -> 45% (y=148) -> 60% (y=124) -> 75% (y=100) Target -->
+              <polyline points="130,172 270,148 410,124 550,100" fill="none" stroke="#ef4444" stroke-width="3.5"/>
+              <circle cx="130" cy="172" r="5" fill="#ef4444"/>
+              <text x="130" y="190" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="middle">30%</text>
+              <circle cx="270" cy="148" r="4" fill="#ef4444"/>
+              <circle cx="410" cy="124" r="4" fill="#ef4444"/>
+              <circle cx="550" cy="100" r="5" fill="#ef4444"/>
+              <text x="550" y="118" font-size="12" font-weight="800" fill="#b91c1c" text-anchor="middle">75%</text>
+            </svg>
+          </div>
+        `;
+      }
+    }
+
+    // USER ACTIONS
+    function selectAnswer(letter) {
+      if (isFinished) return;
+      userAnswers[currentIndex] = letter;
+
+      const items = document.querySelectorAll('.option-item');
+      items.forEach(el => {
+        if (el.getAttribute('data-letter') === letter) {
+          el.classList.add('selected');
+        } else {
+          el.classList.remove('selected');
+        }
+      });
+
+      updateMatrix();
+    }
+
+    function toggleFlag() {
+      if (isFinished) return;
+      flaggedQuestions[currentIndex] = !flaggedQuestions[currentIndex];
+      const btn = document.getElementById('btn-flag');
+      const lbl = document.getElementById('flag-label');
+      if (flaggedQuestions[currentIndex]) {
+        btn.classList.add('flagged');
+        lbl.textContent = 'Flagged for review';
+      } else {
+        btn.classList.remove('flagged');
+        lbl.textContent = 'Flag for review';
+      }
+      updateMatrix();
+    }
+
+    function clearAnswer() {
+      if (isFinished) return;
+      userAnswers[currentIndex] = null;
+      const items = document.querySelectorAll('.option-item');
+      items.forEach(el => el.classList.remove('selected'));
+      updateMatrix();
+    }
+
+    function goToQuestion(index) {
+      if (index >= 0 && index < 10) {
+        renderQuestion(index);
+      }
+    }
+
+    // TIMER LOGIC (20:00 -> 00:00)
+    function startTimer() {
+      const display = document.getElementById('timer-display');
+      const pill = document.getElementById('exam-timer');
+
+      timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          const m = Math.floor(timeRemaining / 60);
+          const s = timeRemaining % 60;
+          display.textContent = `${m}min ${s < 10 ? '0' : ''}${s}s`;
+
+          if (timeRemaining <= 60) {
+            pill.className = 'timer-pill danger';
+          } else if (timeRemaining <= 300) {
+            pill.className = 'timer-pill warning';
+          }
+        } else {
+          clearInterval(timerInterval);
+          autoSubmitOnTimeUp();
+        }
+      }, 1000);
+    }
+
+    function autoSubmitOnTimeUp() {
+      alert("⏱️ Time is up! 20 minutes have elapsed. Your test will now be automatically graded.");
+      submitExam();
+    }
+
+    // SUBMIT & REVIEW
+    function promptSubmitExam() {
+      const unanswered = userAnswers.filter(a => a === null).length;
+      const confirmModal = document.getElementById('confirm-modal');
+      const confirmText = document.getElementById('confirm-text');
+
+      if (unanswered > 0) {
+        confirmText.innerHTML = `⚠️ You currently have <strong>${unanswered} unanswered question(s)</strong> out of 10.<br><br>Are you sure you want to finish and submit your test now?`;
+      } else {
+        confirmText.innerHTML = `🎉 You have answered all 10 questions!<br><br>Are you ready to submit and view your detailed official score and step-by-step solutions?`;
+      }
+      confirmModal.classList.remove('hidden');
+    }
+
+    function submitExam() {
+      if (isFinished) return;
+      isFinished = true;
+      clearInterval(timerInterval);
+
+      document.getElementById('confirm-modal').classList.add('hidden');
+      document.getElementById('overview-modal').classList.add('hidden');
+      document.getElementById('exam-workspace').style.display = 'none';
+      document.getElementById('bottom-navbar').style.display = 'none';
+
+      let score = 0;
+      let correctCount = 0;
+      let incorrectCount = 0;
+      let blankCount = 0;
+
+      QUESTIONS_DATA.forEach((q, idx) => {
+        const userA = userAnswers[idx];
+        if (userA === q.correct) {
+          score += 1;
+          correctCount++;
+        } else if (userA === null) {
+          blankCount++;
+        } else {
+          incorrectCount++;
+        }
+      });
+
+      const percentage = Math.round((score / 10) * 100);
+      const isPass = score >= 5; // EPSO pass mark: 5/10 (50%)
+      const timeSpentSec = 1200 - timeRemaining;
+      const mSpent = Math.floor(timeSpentSec / 60);
+      const sSpent = timeSpentSec % 60;
+
+      const badge = document.getElementById('results-badge');
+      badge.textContent = `${score}/10`;
+      badge.className = `results-score-badge ${isPass ? 'pass' : 'fail'}`;
+
+      const title = document.getElementById('results-title');
+      const desc = document.getElementById('results-desc');
+      const statusEl = document.getElementById('stat-status');
+
+      if (isPass) {
+        title.textContent = "Congratulations, Gregorio! Test Passed!";
+        desc.textContent = "You demonstrated solid mastery of intermediate numerical reasoning under the official EPSO AD5 time limit. Review the step-by-step methods below.";
+        statusEl.textContent = "PASSED";
+        statusEl.style.color = "#16a34a";
+      } else {
+        title.textContent = "Test Completed - Review Required";
+        desc.textContent = "Your score was below the official EPSO pass mark (5/10). Carefully examine each question's resolution to solidify your multi-step calculation speed.";
+        statusEl.textContent = "NEEDS PRACTICE";
+        statusEl.style.color = "#dc2626";
+      }
+
+      document.getElementById('stat-score').textContent = `${score} / 10`;
+      document.getElementById('stat-percent').textContent = `${percentage}%`;
+      document.getElementById('stat-time').textContent = `${mSpent}m ${sSpent}s`;
+
+      const reviewContainer = document.getElementById('review-cards-list');
+      reviewContainer.innerHTML = '';
+
+      QUESTIONS_DATA.forEach((q, idx) => {
+        const userA = userAnswers[idx];
+        const isRight = (userA === q.correct);
+        const isBlank = (userA === null);
+
+        let badgeClass = isRight ? 'correct' : (isBlank ? 'blank' : 'incorrect');
+        let badgeText = isRight ? 'CORRECT (+1)' : (isBlank ? 'UNANSWERED (0)' : `INCORRECT (Chosen: ${userA})`);
+
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.innerHTML = `
+          <div class="review-card-header">
+            <span class="review-q-title">Question ${idx + 1}: ${q.title}</span>
+            <span class="review-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <p style="font-size:0.95rem; color:#334155; margin-bottom:0.75rem;"><strong>Prompt:</strong> ${q.prompt}</p>
+          <div style="font-size:0.9rem; margin-bottom:0.5rem;">
+            <strong>Correct Answer:</strong> Option ${q.correct}) ${q.options.find(o => o.letter === q.correct).text}
+          </div>
+          <div class="solution-box">
+            <div class="solution-title">💡 Official Step-by-Step Resolution:</div>
+            <div class="solution-text">${q.solution}</div>
+          </div>
+        `;
+        reviewContainer.appendChild(card);
+      });
+
+      document.getElementById('results-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // OVERVIEW MODAL
+    function openOverviewModal() {
+      const grid = document.getElementById('modal-overview-grid');
+      grid.innerHTML = '';
+
+      let answered = 0;
+      let flagged = 0;
+
+      for (let i = 0; i < 10; i++) {
+        const isAns = (userAnswers[i] !== null);
+        const isFlg = flaggedQuestions[i];
+        if (isAns) answered++;
+        if (isFlg) flagged++;
+
+        const item = document.createElement('div');
+        item.className = 'overview-item';
+        let statusText = isAns ? `Selected: ${userAnswers[i]}` : 'Unanswered';
+        let statusClass = isAns ? 'status-answered' : 'status-unanswered';
+        if (isFlg) {
+          statusText += ' 🔖';
+          statusClass = 'status-flagged';
+        }
+
+        item.innerHTML = `
+          <div class="overview-num">Q ${i + 1}</div>
+          <div class="overview-status ${statusClass}">${statusText}</div>
+        `;
+        item.addEventListener('click', () => {
+          document.getElementById('overview-modal').classList.add('hidden');
+          goToQuestion(i);
+        });
+        grid.appendChild(item);
+      }
+
+      document.getElementById('modal-answered-count').textContent = answered;
+      document.getElementById('modal-unanswered-count').textContent = (10 - answered);
+      document.getElementById('modal-flagged-count').textContent = flagged;
+
+      document.getElementById('overview-modal').classList.remove('hidden');
+    }
+
+    // EVENT LISTENERS
+    function setupEventListeners() {
+      document.getElementById('btn-prev').addEventListener('click', () => {
+        if (currentIndex > 0) goToQuestion(currentIndex - 1);
+      });
+      document.getElementById('btn-next').addEventListener('click', () => {
+        if (currentIndex < 9) goToQuestion(currentIndex + 1);
+      });
+
+      document.getElementById('btn-flag').addEventListener('click', toggleFlag);
+
+      document.getElementById('btn-submit').addEventListener('click', promptSubmitExam);
+      document.getElementById('btn-modal-submit').addEventListener('click', () => {
+        document.getElementById('overview-modal').classList.add('hidden');
+        promptSubmitExam();
+      });
+      document.getElementById('btn-final-confirm').addEventListener('click', submitExam);
+      document.getElementById('btn-cancel-submit').addEventListener('click', () => {
+        document.getElementById('confirm-modal').classList.add('hidden');
+      });
+      document.getElementById('btn-close-confirm').addEventListener('click', () => {
+        document.getElementById('confirm-modal').classList.add('hidden');
+      });
+
+      document.getElementById('btn-open-overview').addEventListener('click', openOverviewModal);
+      document.getElementById('btn-close-overview').addEventListener('click', () => {
+        document.getElementById('overview-modal').classList.add('hidden');
+      });
+      document.getElementById('btn-modal-return').addEventListener('click', () => {
+        document.getElementById('overview-modal').classList.add('hidden');
+      });
+
+      document.getElementById('btn-retake').addEventListener('click', () => {
+        window.location.reload();
+      });
+
+      // Keyboard Shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (document.activeElement && document.activeElement.tagName === 'TEXTAREA') return;
+
+        const activeModal = document.querySelector('.modal-backdrop:not(.hidden)');
+        if (activeModal && e.key !== 'Escape') return;
+
+        const key = e.key.toUpperCase();
+
+        if (['A', 'B', 'C', 'D', 'E'].includes(key)) {
+          e.preventDefault();
+          selectAnswer(key);
+        } else if (['1', '2', '3', '4', '5'].includes(key) && !e.altKey && !e.ctrlKey) {
+          e.preventDefault();
+          const letter = String.fromCharCode(64 + parseInt(key));
+          selectAnswer(letter);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          if (currentIndex < 9) goToQuestion(currentIndex + 1);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          if (currentIndex > 0) goToQuestion(currentIndex - 1);
+        } else if (key === 'F') {
+          e.preventDefault();
+          toggleFlag();
+        } else if (e.key === 'Delete') {
+          e.preventDefault();
+          clearAnswer();
+        } else if (e.altKey && key === 'C') {
+          e.preventDefault();
+          toggleCalculator();
+        } else if (e.altKey && key === 'N') {
+          e.preventDefault();
+          toggleNotepad();
+        } else if (e.key === 'Escape') {
+          document.getElementById('overview-modal').classList.add('hidden');
+          document.getElementById('confirm-modal').classList.add('hidden');
+        }
+      });
+    }
+
+    // FLOATING CALCULATOR LOGIC
+    let calcCurrent = '0';
+    let calcPrevious = null;
+    let calcOp = null;
+    let calcMemory = 0;
+    let calcResetDisplay = false;
+
+    function setupCalculator() {
+      const win = document.getElementById('calc-win');
+      const btnToggle = document.getElementById('btn-toggle-calculator');
+      const btnClose = document.getElementById('btn-close-calc');
+
+      btnToggle.addEventListener('click', toggleCalculator);
+      btnClose.addEventListener('click', () => win.classList.add('hidden'));
+
+      makeDraggable(win, document.getElementById('calc-drag-handle'));
+
+      document.querySelectorAll('.calc-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const num = btn.getAttribute('data-num');
+          const action = btn.getAttribute('data-action');
+          if (num !== null) handleCalcNum(num);
+          if (action) handleCalcAction(action);
+        });
+      });
+    }
+
+    function toggleCalculator() {
+      const win = document.getElementById('calc-win');
+      win.classList.toggle('hidden');
+    }
+
+    function updateCalcDisplay() {
+      document.getElementById('calc-display').textContent = calcCurrent;
+      const hist = document.getElementById('calc-history');
+      if (calcPrevious !== null && calcOp !== null) {
+        hist.textContent = `${calcPrevious} ${calcOp}`;
+      } else {
+        hist.innerHTML = '&nbsp;';
+      }
+    }
+
+    function handleCalcNum(n) {
+      if (calcCurrent === '0' || calcResetDisplay) {
+        calcCurrent = n;
+        calcResetDisplay = false;
+      } else {
+        if (calcCurrent.length < 12) calcCurrent += n;
+      }
+      updateCalcDisplay();
+    }
+
+    function handleCalcAction(act) {
+      if (act === 'c') {
+        calcCurrent = '0';
+        calcPrevious = null;
+        calcOp = null;
+        calcResetDisplay = false;
+      } else if (act === 'ce') {
+        calcCurrent = '0';
+      } else if (act === 'backspace') {
+        if (calcCurrent.length > 1) {
+          calcCurrent = calcCurrent.slice(0, -1);
+        } else {
+          calcCurrent = '0';
+        }
+      } else if (act === 'dot') {
+        if (!calcCurrent.includes('.')) calcCurrent += '.';
+      } else if (act === 'sqrt') {
+        const val = parseFloat(calcCurrent);
+        calcCurrent = (val >= 0 ? Math.sqrt(val).toString() : '0');
+        calcResetDisplay = true;
+      } else if (act === 'pct') {
+        calcCurrent = (parseFloat(calcCurrent) / 100).toString();
+        calcResetDisplay = true;
+      } else if (['add', 'sub', 'mul', 'div'].includes(act)) {
+        const symbols = { add: '+', sub: '-', mul: '×', div: '÷' };
+        if (calcPrevious !== null && calcOp !== null) {
+          executeCalc();
+        }
+        calcPrevious = calcCurrent;
+        calcOp = symbols[act];
+        calcResetDisplay = true;
+      } else if (act === 'eq') {
+        if (calcPrevious !== null && calcOp !== null) {
+          executeCalc();
+          calcPrevious = null;
+          calcOp = null;
+        }
+      } else if (act === 'm-plus') {
+        calcMemory += parseFloat(calcCurrent) || 0;
+      } else if (act === 'm-minus') {
+        calcMemory -= parseFloat(calcCurrent) || 0;
+      } else if (act === 'mr') {
+        calcCurrent = calcMemory.toString();
+        calcResetDisplay = true;
+      } else if (act === 'mc') {
+        calcMemory = 0;
+      }
+      updateCalcDisplay();
+    }
+
+    function executeCalc() {
+      const a = parseFloat(calcPrevious);
+      const b = parseFloat(calcCurrent);
+      let res = 0;
+      if (calcOp === '+') res = a + b;
+      if (calcOp === '-') res = a - b;
+      if (calcOp === '×') res = a * b;
+      if (calcOp === '÷') res = (b !== 0 ? a / b : 'Error');
+      calcCurrent = (typeof res === 'number') ? (Math.round(res * 1000000) / 1000000).toString() : res;
+      calcResetDisplay = true;
+    }
+
+    // NOTEPAD LOGIC
+    function setupNotepad() {
+      const win = document.getElementById('notepad-win');
+      const btnToggle = document.getElementById('btn-toggle-notepad');
+      const btnClose = document.getElementById('btn-close-notepad');
+      const textarea = document.getElementById('notepad-text');
+      const charCount = document.getElementById('notepad-chars');
+      const btnCopy = document.getElementById('btn-copy-notes');
+      const btnClear = document.getElementById('btn-clear-notes');
+
+      btnToggle.addEventListener('click', toggleNotepad);
+      btnClose.addEventListener('click', () => win.classList.add('hidden'));
+
+      makeDraggable(win, document.getElementById('notepad-drag-handle'));
+
+      const saved = localStorage.getItem('epso_simulator_notes_v2');
+      if (saved) {
+        textarea.value = saved;
+        charCount.textContent = `${saved.length} characters`;
+      }
+
+      textarea.addEventListener('input', () => {
+        localStorage.setItem('epso_simulator_notes_v2', textarea.value);
+        charCount.textContent = `${textarea.value.length} characters`;
+      });
+
+      btnCopy.addEventListener('click', () => {
+        navigator.clipboard.writeText(textarea.value);
+        btnCopy.textContent = 'Copied!';
+        setTimeout(() => btnCopy.textContent = 'Copy', 1500);
+      });
+
+      btnClear.addEventListener('click', () => {
+        if (confirm("Clear all notes?")) {
+          textarea.value = '';
+          localStorage.removeItem('epso_simulator_notes_v2');
+          charCount.textContent = '0 characters';
+        }
+      });
+    }
+
+    function toggleNotepad() {
+      const win = document.getElementById('notepad-win');
+      win.classList.toggle('hidden');
+    }
+
+    // DRAGGABLE WINDOW UTILITY
+    function makeDraggable(element, handle) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      handle.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+        element.style.right = 'auto';
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  </script>
+</body>
+</html>
