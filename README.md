@@ -73,4 +73,16 @@ simulacro_examen/
 
 ---
 
+
+---
+
+## 🇪🇺 Simuladores Oficiales EPSO AD5 en Inglés (Numerical Reasoning Test)
+
+Simuladores con interfaz en inglés idéntica a la del Instituto Europeo / EPSO, gráficos vectoriales SVG de alta definición, cronómetro oficial de 20 minutos (2 min/pregunta), calculadora básica y borrador flotante:
+
+1. **Set A (Foundation)**: [`epso_simulator_en.html`](https://ng057830.github.io/simulacro_examen/epso_simulator_en.html) — 10 preguntas introductorias diversificadas.
+2. **Set B (Intermediate)**: [`epso_simulator_en_v2.html`](https://ng057830.github.io/simulacro_examen/epso_simulator_en_v2.html) — 10 preguntas de nivel medio en contextos europeos.
+3. **Set C (Advanced Intermediate)**: [`epso_simulator_en_v3.html`](https://ng057830.github.io/simulacro_examen/epso_simulator_en_v3.html) — 10 preguntas avanzadas con gráficos y tablas multidimensionales.
+4. **Set D (Cost, Volume, Break-even & Margins)**: [`epso_simulator_en_v4.html`](https://ng057830.github.io/simulacro_examen/epso_simulator_en_v4.html) — 10 preguntas de costo fijo, costo variable, punto de equilibrio, superávit y déficit ("Método Gregorio", max 2-3 operaciones).
+
 *Desarrollado para Gregorio como simulador de preparación para las pruebas de acceso a la función pública en España.*
